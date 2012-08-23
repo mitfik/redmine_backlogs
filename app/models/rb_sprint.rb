@@ -92,6 +92,15 @@ class RbSprint < Version
     errors.add_to_base("Sprint cannot end before it starts") if self.effective_date && self.sprint_start_date && self.sprint_start_date >= self.effective_date
   end
 
+  # TODO check if we can remove sprint_start_date 
+  def sprint_start_date
+    self.start_date
+  end
+
+  def sprint_start_date=(v)
+    self.start_date = v
+  end
+
   def self.rb_scope(symbol, func)
     if Rails::VERSION::MAJOR < 3
       named_scope symbol, func
