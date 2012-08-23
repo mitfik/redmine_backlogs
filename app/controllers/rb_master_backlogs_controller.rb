@@ -80,6 +80,9 @@ class RbMasterBacklogsController < RbApplicationController
     links << {:label =>  l(:label_download_sprint),
               :url => url_for(:controller => 'rb_sprints', :action => 'download', :sprint_id => @sprint, :format => 'xml', :only_path => true)
              } if @sprint && @sprint.has_burndown?
+    links << {:label => l(:label_close),
+              :url => url_for(:controller => 'rb_sprints', :action => 'close', :sprint_id => @sprint, :only_path => true)              
+             } if @sprint && User.current.allowed_to?(:close_sprint, @project)
     links << {:label => l(:label_reset),
               :url => url_for(:controller => 'rb_sprints', :action => 'reset', :sprint_id => @sprint, :only_path => true),
               :warning => view_context().escape_javascript(l(:warning_reset_sprint)).gsub(/\/n/, "\n")
